@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <AppBar>
       <Box>
-        <Grid container>
+        <Grid container sx={{ maxWidth: "container.maxWidth" }}>
           <Grid
             item
             xs={10}
@@ -19,7 +19,7 @@ const Home = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              maxWidth: "80%",
+              maxWidth: "85%",
             }}
           >
             <Typography
@@ -27,7 +27,7 @@ const Home = () => {
               color="primary.main"
               sx={{ fontWeight: 600, marginBottom: 1.5 }}
             >
-              EasyBank.com
+              Easy Bank.com
             </Typography>
             <Typography variant="h6">
               One-Stop Solution for Bank Details where you can find all the
