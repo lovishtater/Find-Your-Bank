@@ -1,9 +1,7 @@
 import React from 'react'
 import AppBar from '../components/AppBar'
 import BankDetailsTable from '../components/BankDetailsTable'
-import {Typography, Button} from '@mui/material'
-import { Link } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import {Typography} from '@mui/material'
 
 const Favorites = () => {
   const  favoriteBanks = localStorage.getItem('favorite') ? JSON.parse(localStorage.getItem('favorite')) : [];

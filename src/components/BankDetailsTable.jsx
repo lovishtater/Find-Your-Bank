@@ -59,7 +59,7 @@ const BankDetailsTable = (props) => {
               <Table size="small">
                 <TableHead>
                   <TableRow style={{ backgroundColor: "#f5f5f5" }}>
-                    <TableCell>Bookmark</TableCell>
+                    <TableCell>Saved</TableCell>
                     <TableCell>Bank Id</TableCell>
                     <TableCell>Bank Name</TableCell>
                     <TableCell>IFSC Code</TableCell>

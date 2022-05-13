@@ -10,7 +10,6 @@ export const addFavorite = (bank) => (dispatch) => {
     favoriteBanks.push(bank);
     localStorage.setItem("favorite", JSON.stringify(favoriteBanks));
   }
-  const favoriteBanksWithId = favoriteBanks.map((bank) => bank.ifsc);
   dispatch({
     type: SET_FAVORITES,
     payload: favoriteBanks,

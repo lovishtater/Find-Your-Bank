@@ -34,7 +34,6 @@ const pages = [
 
 
 export default function NavBar({children, style}) {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);

@@ -8,7 +8,6 @@ import Favorites from '../views/Favorites';
 import Home from '../views/Home';
 import ErrorPage from '../views/404';
 import BankDetail from '../views/BankDetail';
-import AppBar from '../components/AppBar';
 import AllBank from '../views/AllBanks';
 
 const Router = () => {
