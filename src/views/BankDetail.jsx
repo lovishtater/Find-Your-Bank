@@ -1,9 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import CardContent from '@mui/material/CardContent'
@@ -13,14 +11,20 @@ import manImg from '../assets/manPointingBankDetails.png'
 import BusinessIcon from "@mui/icons-material/Business";
 import { useSelector } from 'react-redux';
 import AppBar  from '../components/AppBar';
+import NoResultFound from '../components/NoResultFound'
 
 
 const BankDetail = () => {
     const { ifscCode } = useParams();
-    const bank = useSelector((state) => state.bank?.banks?.filter((bank) => bank.ifsc === ifscCode)[0]);
+    const normalbank = localStorage.getItem('banks') ? JSON.parse(localStorage.getItem('banks')) : [];
+    const favoriteBanks = localStorage.getItem('favorite') ? JSON.parse(localStorage.getItem('favorite')) : [];
+    const unionBanks = normalbank.concat(favoriteBanks);
+    const bank = unionBanks.filter(bank => bank.ifsc === ifscCode)[0];
+
     return (
       <AppBar>
         <Card style={{ margin: "0 auto", maxWidth: "80%", marginTop: "2rem" }}>
+          {bank ? (
           <Grid container>
             <Grid item xs={12} sm={6}>
               <CardContent
@@ -73,6 +77,9 @@ const BankDetail = () => {
               <img src={manImg} alt="Man pointing towards Bank Details" />
             </Grid>
           </Grid>
+          ) : (
+            <NoResultFound />
+          )}
         </Card>
       </AppBar>
     );

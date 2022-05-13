@@ -9,7 +9,7 @@ import AppBar from "../components/AppBar";
 import Filters from '../components/Filters';
 
 const AllBanks = () => {
-    const { banks, isLoading, error } = useSelector((state) => state.bank);
+    const { banks } = useSelector((state) => state.bank);
   return (
     <AppBar>
       <Box display="flex" justifyContent="center" alignItems="center">

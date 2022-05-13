@@ -40,6 +40,7 @@ const Home = () => {
           <Grid item xs={12} sm={6}>
             <img src={require("../assets/bankLoc.png")} alt="Illustration"
               style={{ width: "100%" }}
+              className="updown"
             />
           </Grid>
         </Grid>

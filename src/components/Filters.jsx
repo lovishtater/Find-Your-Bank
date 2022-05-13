@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import BankDetailsTable from "../components/BankDetailsTable";
 import { getBankList, getFilteredBankList } from "../redux/actions/bank";
 import {
   Grid,
@@ -12,23 +11,20 @@ import {
   Select,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Search from "@mui/icons-material/Search";
-import AppBar from "../components/AppBar";
+
 
 const Filters = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { banks, isLoading, error } = useSelector((state) => state.bank);
+  const { banks } = useSelector((state) => state.bank);
   const [city, setCity] = React.useState("MUMBAI");
   const [category, setCategory] = React.useState(categories[0].value);
-  const bankDataFromLocalStorage = localStorage.getItem("banks")
-    ? JSON.parse(localStorage.getItem("banks"))
-    : [];
+  const bankDataFromLocalStorage = localStorage.getItem("banks") ? JSON.parse(localStorage.getItem("banks")) : [];
+
   useEffect(() => {
     dispatch(getBankList(city));
   }, [city]);
-  const state = useSelector((state) => state);
-  console.log(state);
+
   const debounce = (func, wait) => {
     let timeout;
     return (val) => {
@@ -50,8 +46,11 @@ const Filters = () => {
 
   const redirectToDetailsPage = (bankId) => {
     const id = bankId.substring(bankId.lastIndexOf(" ") + 1);
-    navigate(`/bank-details/${id}`);
+    if (id && banks.map((bank) => bank.ifsc).includes(id)) {
+      navigate(`/bank-details/${id}`);
+    }
   };
+
   return (
     <Grid
       container
@@ -101,7 +100,7 @@ const Filters = () => {
           getOptionLabel={(option) => option.bank_name + " - " + option.ifsc}
           style={{ borderRadius: "20px", color: "#000" }}
           onSelect={(e) =>
-            e.target.value.length > 11 && redirectToDetailsPage(e.target.value)
+             redirectToDetailsPage(e.target.value)
           }
           renderInput={(params) => (
             <TextField

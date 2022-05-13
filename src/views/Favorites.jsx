@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 const Favorites = () => {
   const  favoriteBanks = localStorage.getItem('favorite') ? JSON.parse(localStorage.getItem('favorite')) : [];
-  
+
   return (
     <AppBar title="Favorites">
       <Typography
@@ -16,7 +16,7 @@ const Favorites = () => {
         align="center"
         style={{ fontWeight: "bold" }}
       >
-        Favorites
+        Favorite Banks
       </Typography>
       <BankDetailsTable bankData={favoriteBanks} />
     </AppBar>

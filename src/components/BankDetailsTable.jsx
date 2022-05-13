@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Table,
   TableBody,
@@ -8,10 +9,8 @@ import {
   Paper,
   TablePagination,
   IconButton,
-  CircularProgress,
   LinearProgress,
 } from "@mui/material";
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { styled } from "@mui/material/styles";
 import BookMark from "@mui/icons-material/Bookmark";
@@ -31,12 +30,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const BankDetailsTable = (props) => {
-  const { bankData } = props;
   const dispatch = useDispatch();
+  const { bankData } = props;
   const { isLoading } = useSelector((state) => state.bank);
+  const { favoriteBanks } = useSelector((state) => state.favorite);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const { favoriteBanks } = useSelector((state) => state.favorite);
   
 
   const handleChangePage = async (event, newPage) => {
@@ -47,6 +46,7 @@ const BankDetailsTable = (props) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
   return (
     <main style={{ marginTop: "30px" }}>
       <Paper sx={{ margin: "0 auto", maxWidth: "85vw" , minHeight: "50vh"}}>
