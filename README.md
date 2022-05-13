@@ -1,5 +1,5 @@
 # Easy Bank.com
-![Banner](https://github.com/lovishtater/Find-Your-Bank/blob/main/src/assets/Easybank.jpg)
+![Banner](https://github.com/lovishtater/Find-Your-Bank/blob/main/src/assets/EasyBank.jpg)
 
 Easy Bank.com is an application built using React.js, Redux, Material-UI. 
  - It is a application that can be used to find the list of all the banks in a particular place in India. 
