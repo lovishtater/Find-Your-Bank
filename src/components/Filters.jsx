@@ -39,7 +39,7 @@ const Filters = () => {
 
   const handleSearch = debounce((value) => {
     searchBank(value);
-  }, 500);
+  }, 1000);
 
   const searchBank = (value) => {
     const filteredBanks = bankDataFromLocalStorage.filter((bank) => {
@@ -50,7 +50,6 @@ const Filters = () => {
   //TODO:optimize this code
   const redirectToDetailsPage = (bankId) => {
     const id = bankId.substring(bankId.lastIndexOf(" ") + 1);
-    console.log(id);
     navigate(`/bank-details/${id}`);
   };
   return (
@@ -59,7 +58,7 @@ const Filters = () => {
       spacing={3}
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} md={2}>
         <FormControl variant="outlined" fullWidth>
           <Select
             value={city}
@@ -77,7 +76,7 @@ const Filters = () => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} md={2}>
         <FormControl variant="outlined" fullWidth>
           <Select
             size="small"
@@ -95,22 +94,24 @@ const Filters = () => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={2}>
         <Autocomplete
           options={banks || []}
           color="secondary"
           size="small"
           placeholder="Search by Bank Name"
           getOptionLabel={(option) => option.bank_name + " - " + option.ifsc}
-          style={{ width: 300, borderRadius: "20px" }}
+          style={{ borderRadius: "20px" , color: "#000"}}
           onSelect={(e) =>
             e.target.value.length > 11 && redirectToDetailsPage(e.target.value)
           }
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Search"
+              placeholder="Search by Bank Name"
+              sx={{ borderRadius: "20px" , color: "#000"}}
               variant="outlined"
+              color="primary"
               onKeyUp={(e) => handleSearch(e.target.value)}
             />
           )}

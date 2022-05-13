@@ -11,7 +11,12 @@ const AllBanks = () => {
     const { banks, isLoading, error } = useSelector((state) => state.bank);
   return (
     <AppBar>
-      <Typography variant="h3" color="initial">
+      <Typography
+        variant="h3"
+        color="primary.main"
+        align="center"
+        style={{ fontWeight: "bold" }}
+      >
         Bank Details
       </Typography>
       <Filters />

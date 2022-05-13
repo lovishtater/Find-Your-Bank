@@ -34,7 +34,6 @@ export const getBankList = (city) => async (dispatch) => {
 }
 
 export const getFilteredBankList = (payload) => async (dispatch) => {
-    console.log(payload);
   dispatch({
     type: FILTERED_BANK_LIST,
     payload: payload,
