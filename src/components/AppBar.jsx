@@ -18,6 +18,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Link } from "react-router-dom";
+import arches from "../assets/arches.png";
 
 const drawerWidth = 240;
 
@@ -44,7 +45,11 @@ export default function NavBar({ children, style }) {
 
   return (
     <Box
-      sx={{ display: "flex", backgroundColor: "#E4E5EB", minHeight: "100vh" }}
+      sx={{ 
+      display: "flex", 
+      backgroundColor: "#E4E5EB",    
+      backgroundImage: `url(${arches})`,      
+      minHeight: "100vh" }}
     >
       <CssBaseline />
       <AppBar position="fixed" open={open}>
