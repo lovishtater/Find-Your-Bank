@@ -1,10 +1,12 @@
-import React from 'react'
-import AppBar from '../components/AppBar'
-import BankDetailsTable from '../components/BankDetailsTable'
-import {Typography} from '@mui/material'
+import React from "react";
+import AppBar from "../components/AppBar";
+import BankDetailsTable from "../components/BankDetailsTable";
+import { Typography } from "@mui/material";
 
 const Favorites = () => {
-  const  favoriteBanks = localStorage.getItem('favorite') ? JSON.parse(localStorage.getItem('favorite')) : [];
+  const favoriteBanks = localStorage.getItem("favorite")
+    ? JSON.parse(localStorage.getItem("favorite"))
+    : [];
 
   return (
     <AppBar title="Favorites">
@@ -19,6 +21,6 @@ const Favorites = () => {
       <BankDetailsTable bankData={favoriteBanks} />
     </AppBar>
   );
-}
+};
 
-export default Favorites
+export default Favorites;

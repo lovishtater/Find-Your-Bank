@@ -32,8 +32,7 @@ const pages = [
   },
 ];
 
-
-export default function NavBar({children, style}) {
+export default function NavBar({ children, style }) {
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -105,8 +104,6 @@ export default function NavBar({children, style}) {
     </Box>
   );
 }
-
-
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({

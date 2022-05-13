@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -20,6 +20,6 @@ const NoResultFound = () => {
       </Link>
     </div>
   );
-}
+};
 
-export default NoResultFound
+export default NoResultFound;

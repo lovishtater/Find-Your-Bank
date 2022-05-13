@@ -12,14 +12,15 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-
 const Filters = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { banks } = useSelector((state) => state.bank);
   const [city, setCity] = React.useState("MUMBAI");
   const [category, setCategory] = React.useState(categories[0].value);
-  const bankDataFromLocalStorage = localStorage.getItem("banks") ? JSON.parse(localStorage.getItem("banks")) : [];
+  const bankDataFromLocalStorage = localStorage.getItem("banks")
+    ? JSON.parse(localStorage.getItem("banks"))
+    : [];
 
   useEffect(() => {
     dispatch(getBankList(city));
@@ -55,7 +56,7 @@ const Filters = () => {
     <Grid
       container
       spacing={3}
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center"}}
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <Grid item xs={12} md={2}>
         <FormControl variant="outlined" fullWidth>
@@ -99,9 +100,7 @@ const Filters = () => {
           placeholder="Search by Bank Name"
           getOptionLabel={(option) => option.bank_name + " - " + option.ifsc}
           style={{ borderRadius: "20px", color: "#000" }}
-          onSelect={(e) =>
-             redirectToDetailsPage(e.target.value)
-          }
+          onSelect={(e) => redirectToDetailsPage(e.target.value)}
           renderInput={(params) => (
             <TextField
               {...params}

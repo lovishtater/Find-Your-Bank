@@ -24,6 +24,6 @@ export const removeFavorite = (bank) => (dispatch) => {
   localStorage.setItem("favorite", JSON.stringify(newFavoriteBanks));
   dispatch({
     type: SET_FAVORITES,
-    payload: newFavoriteBanks
+    payload: newFavoriteBanks,
   });
 };
