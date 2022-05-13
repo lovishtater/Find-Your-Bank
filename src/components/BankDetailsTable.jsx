@@ -6,32 +6,38 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Grid,
-  Typography,
   TablePagination,
-  FormControl,
-  OutlinedInput,
-  MenuItem,
-  Autocomplete,
-  TextField,
-  Select,
   IconButton,
+  CircularProgress,
+  LinearProgress,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { styled } from "@mui/material/styles";
 import BookMark from "@mui/icons-material/Bookmark";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import { Link } from "react-router-dom";
 import NoResultFound from "./NoResultFound";
+import { addFavorite, removeFavorite } from "../redux/actions/favorites";
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.secondary.light,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 const BankDetailsTable = (props) => {
   const { bankData } = props;
+  const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.bank);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const favoriteBanks = localStorage.getItem("favorite") ? JSON.parse(localStorage.getItem("favorite")).map((bank) => {return bank.ifsc}) : [];
-  const [isFavorite, setIsFavorite] = React.useState(favoriteBanks);
+  const { favoriteBanks } = useSelector((state) => state.favorite);
+  
 
   const handleChangePage = async (event, newPage) => {
     setPage(newPage);
@@ -41,41 +47,18 @@ const BankDetailsTable = (props) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  const addFavorite = (bank) => {
-    if (localStorage.getItem("favorite")) {
-      let favoriteBanks = JSON.parse(localStorage.getItem("favorite"));
-      favoriteBanks.push(bank);
-      setIsFavorite([...isFavorite, bank.ifsc]);
-
-      localStorage.setItem("favorite", JSON.stringify(favoriteBanks));
-    } else {
-      let favoriteBanks = [];
-      favoriteBanks.push(bank);
-      localStorage.setItem("favorite", JSON.stringify(favoriteBanks));
-    }
-  };
-
-  const removeFavorite = (ifsc) => {
-    if (localStorage.getItem("favorite")) {
-      const favorite = JSON.parse(localStorage.getItem("favorite"));
-      const newFavorite = favorite.filter((bank) => bank.ifsc !== ifsc);
-      setIsFavorite(newFavorite.map((bank) => bank.ifsc));
-      localStorage.setItem("favorite", JSON.stringify(newFavorite));
-    }
-  };
-
   return (
-    <main style={{ marginTop: "100px" }}>
-      {isLoading ? (
-        <div>Loading...</div>
+    <main style={{ marginTop: "30px" }}>
+      <Paper sx={{ margin: "0 auto", maxWidth: "85vw" , minHeight: "50vh"}}>
+      {isLoading || !bankData ? (
+        <LinearProgress color="secondary" />
       ) : (
-        <Paper sx={{ margin: "0 auto", maxWidth: "85vw" }}>
+        <>
           <TableContainer>
             {bankData.length > 0 ? (
               <Table size="small">
                 <TableHead>
-                  <TableRow>
+                  <TableRow style={{ backgroundColor: "#f5f5f5" }}>
                     <TableCell>Bookmark</TableCell>
                     <TableCell>Bank Id</TableCell>
                     <TableCell>Bank Name</TableCell>
@@ -91,15 +74,15 @@ const BankDetailsTable = (props) => {
                   {bankData
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((bank, index) => {
-                      const isBookmarked = isFavorite.includes(bank.ifsc);
+                      const isBookmarked = favoriteBanks.map((bank) => bank.ifsc).includes(bank.ifsc);
                       return (
-                        <TableRow key={index}>
+                        <StyledTableRow key={index}>
                           <TableCell>
                             <IconButton
                               onClick={() => {
                                 isBookmarked
-                                  ? removeFavorite(bank.ifsc)
-                                  : addFavorite(bank);
+                                  ? dispatch(removeFavorite(bank))
+                                  : dispatch(addFavorite(bank))
                               }}
                             >
                               {isBookmarked ? (
@@ -124,7 +107,7 @@ const BankDetailsTable = (props) => {
                           <TableCell>{bank.district}</TableCell>
                           <TableCell>{bank.state}</TableCell>
                           <TableCell>{bank.address}</TableCell>
-                        </TableRow>
+                        </StyledTableRow>
                       );
                     })}
                 </TableBody>
@@ -142,8 +125,9 @@ const BankDetailsTable = (props) => {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
-        </Paper>
-      )}
+          </>
+          )}
+          </Paper>
     </main>
   );
 };

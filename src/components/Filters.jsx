@@ -21,7 +21,6 @@ const Filters = () => {
   const { banks, isLoading, error } = useSelector((state) => state.bank);
   const [city, setCity] = React.useState("MUMBAI");
   const [category, setCategory] = React.useState(categories[0].value);
-  const [search, setSearch] = React.useState("");
   const bankDataFromLocalStorage = localStorage.getItem("banks")
     ? JSON.parse(localStorage.getItem("banks"))
     : [];
@@ -29,6 +28,7 @@ const Filters = () => {
     dispatch(getBankList(city));
   }, [city]);
   const state = useSelector((state) => state);
+  console.log(state);
   const debounce = (func, wait) => {
     let timeout;
     return (val) => {
@@ -47,7 +47,7 @@ const Filters = () => {
     });
     dispatch(getFilteredBankList(filteredBanks));
   };
-  //TODO:optimize this code
+
   const redirectToDetailsPage = (bankId) => {
     const id = bankId.substring(bankId.lastIndexOf(" ") + 1);
     navigate(`/bank-details/${id}`);
@@ -56,7 +56,7 @@ const Filters = () => {
     <Grid
       container
       spacing={3}
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center"}}
     >
       <Grid item xs={12} md={2}>
         <FormControl variant="outlined" fullWidth>
@@ -64,7 +64,6 @@ const Filters = () => {
             value={city}
             size="small"
             color="primary"
-            sx={{ borderRadius: "15px" }}
             onChange={(e) => setCity(e.target.value)}
             input={<OutlinedInput />}
           >
@@ -81,7 +80,6 @@ const Filters = () => {
           <Select
             size="small"
             color="primary"
-            sx={{ borderRadius: "15px" }}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             input={<OutlinedInput />}
@@ -101,7 +99,7 @@ const Filters = () => {
           size="small"
           placeholder="Search by Bank Name"
           getOptionLabel={(option) => option.bank_name + " - " + option.ifsc}
-          style={{ borderRadius: "20px" , color: "#000"}}
+          style={{ borderRadius: "20px", color: "#000" }}
           onSelect={(e) =>
             e.target.value.length > 11 && redirectToDetailsPage(e.target.value)
           }
@@ -109,7 +107,7 @@ const Filters = () => {
             <TextField
               {...params}
               placeholder="Search by Bank Name"
-              sx={{ borderRadius: "20px" , color: "#000"}}
+              sx={{ borderRadius: "20px", color: "#000" }}
               variant="outlined"
               color="primary"
               onKeyUp={(e) => handleSearch(e.target.value)}

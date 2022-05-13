@@ -10,8 +10,8 @@ const NoResultFound = () => {
         alt="noFav"
         style={{ width: "30vh" }}
       />
-      <Typography variant="h4" color="initial">
-        No Favorites Found
+      <Typography variant="h5" color="initial">
+        Not Found
       </Typography>
       <Link to="/all-banks">
         <Button variant="h5" color="initial">

@@ -1,8 +1,10 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { getBankList } from "./reducer/bankReducer";
+import { getFavoriteBanks } from "./reducer/favoriteReducer";
 
 const reducer = combineReducers({
   bank: getBankList,
+  favorite: getFavoriteBanks,
 });
 
 export default configureStore({
@@ -12,6 +14,9 @@ export default configureStore({
       banks: [],
       isLoading: false,
       error: null,
+    },
+    favorite: {
+      favoriteBanks: [],
     }
   }
 });

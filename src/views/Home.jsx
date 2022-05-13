@@ -25,10 +25,11 @@ const Home = () => {
                 sx={{ fontWeight: 600, marginBottom: 1.5 }}
               >
                  
-              Find Your Bank.com
+              EasyBank.com
               </Typography>
               <Typography variant="h6">
                 One-Stop Solution for Bank Details where you can find all the details of Banks in India.
+
               </Typography>
               <Link to="/all-banks">
                 <Button variant="contained" color="primary" size="large" sx={{ marginTop: 2.5 }}>

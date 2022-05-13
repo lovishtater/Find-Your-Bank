@@ -46,7 +46,9 @@ export default function NavBar({children, style}) {
   };
 
   return (
-    <Box sx={{ display: "flex", backgroundColor: "#E4E5EB" , minHeight: "100vh"}}>
+    <Box
+      sx={{ display: "flex", backgroundColor: "#E4E5EB", minHeight: "100vh" }}
+    >
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -60,12 +62,12 @@ export default function NavBar({children, style}) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Find Your Bank
+            EasyBank
           </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
-      PaperProps={{ style: { backgroundColor: "#E4E5EB" } }} 
+        PaperProps={{ style: { backgroundColor: "#E4E5EB" } }}
         sx={{
           width: drawerWidth,
           flexShrink: 0,
