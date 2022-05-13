@@ -26,11 +26,14 @@ import { Link } from "react-router-dom";
 
 
 const BankDetailsTable = (props) => {
-  const {bankData} = props
-    const { banks, isLoading } = useSelector((state) => state.bank);
-    // dispatchEvent  
+      const {bankData} = props
+      const { banks, isLoading } = useSelector((state) => state.bank);
       const [page, setPage] = React.useState(0);
-      const [rowsPerPage, setRowsPerPage] = React.useState(10);      
+      const [rowsPerPage, setRowsPerPage] = React.useState(10);
+      const favoriteBanks = JSON.parse(localStorage.getItem("favorite"))
+      .map((bank) => { return bank.ifsc});
+        const [isFavorite, setIsFavorite] = React.useState(favoriteBanks);
+      console.log(isFavorite)    
 
     const handleChangePage = async (event, newPage) => {
     setPage(newPage);
@@ -40,18 +43,12 @@ const BankDetailsTable = (props) => {
     setPage(0);
   };
 
-  const isFavorite = (ifsc) => {
-    const favoriteBanks = JSON.parse(localStorage.getItem("favorite"));
-    if (favoriteBanks) {
-      return favoriteBanks.find((bank) => bank.ifsc === ifsc);
-    }
-    return false;
-  }
-
   const addFavorite = (bank) => {
        if (localStorage.getItem("favorite")) {
         let favoriteBanks = JSON.parse(localStorage.getItem("favorite"));
         favoriteBanks.push(bank);
+        setIsFavorite([...isFavorite, bank.ifsc]);
+
         localStorage.setItem("favorite", JSON.stringify(favoriteBanks));
   }else{
     let favoriteBanks = [];
@@ -64,6 +61,7 @@ const BankDetailsTable = (props) => {
     if (localStorage.getItem("favorite")) {
       const favorite = JSON.parse(localStorage.getItem("favorite"));
       const newFavorite = favorite.filter((bank) => bank.ifsc !== ifsc);
+      setIsFavorite(newFavorite.map((bank) => bank.ifsc));
       localStorage.setItem("favorite", JSON.stringify(newFavorite));
     }else{
       alert("No Bookmark to remove")
@@ -76,9 +74,9 @@ const BankDetailsTable = (props) => {
       {isLoading || !bankData ? (
         <div>Loading...</div>
       ) : (
-        <Paper>
+        <Paper sx={{ margin: "0 auto", maxWidth: "85vw" }}>
           <TableContainer>
-            <Table sx={{ minWidth: 650 }} size="small">
+            <Table size="small">
               <TableHead>
                 <TableRow>
                   <TableCell>Bookmark</TableCell>
@@ -97,17 +95,19 @@ const BankDetailsTable = (props) => {
                   bankData
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((bank, index) => {
+                      const isBookmarked = isFavorite.includes(bank.ifsc);
                       return (
                         <TableRow key={index}>
                           <TableCell>
                             <IconButton
                               onClick={() => {
-                                isFavorite(bank.ifsc)
+                                console.log(isFavorite.includes(bank.ifsc));
+                                isBookmarked
                                   ? removeFavorite(bank.ifsc)
                                   : addFavorite(bank);
                               }}
                             >
-                              {isFavorite(bank.ifsc) ? (
+                              {isBookmarked ? (
                                 <BookMark style={{ color: "red" }} />
                               ) : (
                                 <BookmarkBorderOutlinedIcon />
@@ -118,7 +118,10 @@ const BankDetailsTable = (props) => {
                           <TableCell>{bank.bank_id}</TableCell>
 
                           <TableCell>
-                            <Link to={`/bank-details/${bank.ifsc}`} style={{ color: "#000" }}>
+                            <Link
+                              to={`/bank-details/${bank.ifsc}`}
+                              style={{ color: "#000" }}
+                            >
                               {bank.bank_name}
                             </Link>
                           </TableCell>

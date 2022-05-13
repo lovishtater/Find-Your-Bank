@@ -1,21 +1,25 @@
-import { Button } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { Link } from 'react-router-dom'
-import Error from "../assets/404.gif"
+import Error from "../assets/404.png";
+import AppBar from '../components/AppBar'
 
 const ErrorPage = () => {
-  console.log("hello")
   return (
-    <main style={{ backgroundColor: "#F1F4F9" }}>
-      <img src={Error} alt="404" 
-      style={{ width: "50%", marginBottom: "2rem", marginTop: "2rem" }} 
+    <AppBar>
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "80vh" }}>
+      <img
+        src={Error}
+        alt="404"
+        style={{ width: "400px", margin : "0 auto", display: "block" }}
       />
-    
+
       <Link to="/">
         <Button variant="outlined" color="primary">
           Go to Home
         </Button>
       </Link>
-    </main>
+      </Box>
+    </AppBar>
   );
 }
 
