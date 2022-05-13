@@ -4,23 +4,27 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Favorites from '../views/favorites';
-import Home from '../views/home';
+import Favorites from '../views/Favorites';
+import Home from '../views/Home';
 import ErrorPage from '../views/404';
-import BankDetail from '../views/bankDetail';
-
+import BankDetail from '../views/BankDetail';
+import AppBar from '../components/AppBar';
+import AllBank from '../views/AllBanks';
 
 const Router = () => {
   return (
-    <BrowserRouter baseUrl="/">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/bank/:id" element={<BankDetail />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter baseUrl="/">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/all-banks" element={<AllBank />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/bank-details/:ifscCode" element={<BankDetail />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
-export default Router
+export default Router;
