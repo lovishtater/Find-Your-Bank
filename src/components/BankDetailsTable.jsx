@@ -122,7 +122,7 @@ const BankDetailsTable = (props) => {
             </TableContainer>
             <TablePagination
               rowsPerPageOptions={[10, 25, 100]}
-              count={Math.ceil(bankData.length / rowsPerPage)}
+              count={bankData.length -1}
               rowsPerPage={rowsPerPage}
               page={page}
               component="div"
